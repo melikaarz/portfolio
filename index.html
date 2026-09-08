@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Melika Rezaee | Portfolio & Resume</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: rgba(30, 41, 59, 0.75); /* Semi-transparent Glassmorphism */
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --border: rgba(51, 65, 85, 0.8);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; overflow-x: hidden; position: relative; }
+
+    /* Full Page Particle Background */
+    #particles-js {
+      position: fixed; /* Fixed position so it stays visible while scrolling through entire page */
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: auto;
+    }
+
+    /* ================= Animated AI Intro Screen ================= */
+    .intro-screen {
+      height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .intro-content {
+      max-width: 800px;
+    }
+
+    .intro-title {
+      font-size: 3.2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #fff 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeInDown 1.2s ease-out forwards;
+    }
+
+    .intro-subtitle {
+      font-size: 1.25rem;
+      color: var(--text-muted);
+      margin-bottom: 35px;
+      animation: fadeInUp 1.2s ease-out 0.3s forwards;
+      opacity: 0;
+    }
+
+    .enter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0f172a;
+      background-color: var(--accent);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.5);
+      transition: all 0.3s ease;
+      animation: fadeInUp 1.2s ease-out 0.6s forwards, pulse 2s infinite 1.8s;
+      opacity: 0;
+    }
+
+    .enter-btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 35px rgba(56, 189, 248, 0.8);
+    }
+
+    /* Animation Keyframes */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.5); }
+      50% { box-shadow: 0 0 35px rgba(56, 189, 248, 0.9); }
+      100% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.5); }
+    }
+
+    /* ================= Main Resume Section ================= */
+    .resume-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 60px 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .container { display: grid; grid-template-columns: 320px 1fr; gap: 30px; max-width: 1200px; width: 100%; }
+    
+    /* Sidebar with Glassmorphism */
+    .sidebar { 
+      background: var(--card-bg); 
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 30px; 
+      border-radius: 16px; 
+      border: 1px solid var(--border); 
+      height: fit-content; 
+      position: sticky; 
+      top: 40px; 
+    }
+    .profile-header { text-align: center; margin-bottom: 20px; }
+    .avatar { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--accent); margin-bottom: 15px; object-fit: cover; }
+    .name { font-size: 1.5rem; margin-bottom: 5px; }
+    .title { color: var(--accent); font-size: 0.95rem; font-weight: 500; }
+    
+    .contact-list { list-style: none; margin-top: 20px; border-top: 1px solid var(--border); padding-top: 20px; }
+    .contact-item { margin-bottom: 12px; font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 10px; word-break: break-all; }
+    .contact-item a { color: var(--text-muted); text-decoration: none; transition: 0.3s; }
+    .contact-item a:hover { color: var(--accent); }
+    .contact-item i { color: var(--accent); width: 20px; text-align: center; font-size: 1rem; }
+
+    /* Main Content with Glassmorphism */
+    .content { display: flex; flex-direction: column; gap: 25px; }
+    .card { 
+      background: var(--card-bg); 
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 30px; 
+      border-radius: 16px; 
+      border: 1px solid var(--border); 
+    }
+    .section-title { font-size: 1.25rem; margin-bottom: 15px; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+    .text { color: var(--text-muted); line-height: 1.7; font-size: 0.95rem; }
+
+    /* Lists and Badges */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .skill-tag { background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border); padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; color: var(--text-main); }
+
+    .item-card { border-left: 3px solid var(--accent); padding-left: 15px; margin-bottom: 20px; }
+    .item-card:last-child { margin-bottom: 0; }
+    .item-title { font-size: 1.05rem; font-weight: 600; color: var(--text-main); }
+    .item-subtitle { font-size: 0.85rem; color: var(--accent); margin-bottom: 8px; }
+    .item-date { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; }
+    
+    .project-link { display: inline-block; margin-top: 8px; color: var(--accent); font-size: 0.85rem; text-decoration: none; }
+    .project-link:hover { text-decoration: underline; }
+
+    ul.bullets { margin-left: 20px; color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
+
+    @media (max-width: 850px) {
+      .intro-title { font-size: 2.2rem; }
+      .container { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fixed Particles Background for Entire Site -->
+  <div id="particles-js"></div>
+
+  <!-- Animated AI Intro Screen -->
+  <section class="intro-screen">
+    <div class="intro-content">
+      <h1 class="intro-title">Hello, I'm Melika Rezaee</h1>
+      <p class="intro-subtitle">Computer Vision & Deep Learning Specialist passionate about building intelligent visual recognition systems.</p>
+      <a href="#resume" class="enter-btn">
+        View Portfolio & Resume <i class="fas fa-arrow-down"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Main Resume Section -->
+  <div id="resume" class="resume-wrapper">
+    <div class="container">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="profile-header">
+          <img src="profile.jpg" alt="Melika Rezaee" class="avatar" onerror="this.src='https://via.placeholder.com/150'">
+          <h1 class="name">Melika Rezaee</h1>
+          <p class="title">Computer Vision & AI Enthusiast</p>
+        </div>
+        
+        <ul class="contact-list">
+          <li class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:rmelika.rz.2004@gmail.com">rmelika.rz.2004@gmail.com</a>
+          </li>
+          <li class="contact-item">
+            <i class="fas fa-location-dot"></i>
+            <span>Tehran, District 22, Iran</span>
+          </li>
+          <li class="contact-item">
+            <i class="fab fa-github"></i>
+            <a href="https://github.com/melikaarz" target="_blank">github.com/melikaarz</a>
+          </li>
+          <li class="contact-item">
+            <i class="fab fa-linkedin"></i>
+            <a href="https://linkedin.com/in/melika-rezayi" target="_blank">https://www.linkedin.com/in/melika-rezaee/</a>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="content">
+        <!-- Summary -->
+        <section class="card">
+          <h2 class="section-title"><i class="fas fa-user"></i> About Me</h2>
+          <p class="text">
+            Computer Science graduate from K. N. Toosi University of Technology with a strong focus on Artificial Intelligence and Computer Vision. Proficient in Python and Deep Learning frameworks (TensorFlow, Keras, PyTorch) alongside data analysis libraries (Pandas, NumPy). Passionate about developing computer vision models and deploying intelligent solutions.
+          </p>
+        </section>
+
+        <!-- Work Experience -->
+        <section class="card">
+          <h2 class="section-title"><i class="fas fa-briefcase"></i> Experience</h2>
+          <div class="item-card">
+            <h3 class="item-title">Computer Vision Engineer Intern</h3>
+            <p class="item-subtitle">MehrAnformatic | Tehran</p>
+            <p class="item-date">August 2026 - Present</p>
+            <ul class="bullets">
+              <li>Developed a CNN architecture for accurate traffic sign recognition in autonomous vehicle systems.</li>
+              <li>Implemented advanced preprocessing and augmentation techniques to handle varying lighting conditions.</li>
+              <li>Achieved 98% classification accuracy on the GTSRB dataset.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Education -->
+        <section class="card">
+          <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h2>
+          <div class="item-card">
+            <h3 class="item-title">B.Sc. in Computer Science</h3>
+            <p class="item-subtitle">K. N. Toosi University of Technology | Tehran, Iran</p>
+            <p class="item-date">October 2022 - July 2026</p>
+          </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="card">
+          <h2 class="section-title"><i class="fas fa-code"></i> Skills</h2>
+          <div class="skills-grid">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">PyTorch</span>
+            <span class="skill-tag">TensorFlow</span>
+            <span class="skill-tag">Keras</span>
+            <span class="skill-tag">Scikit-Learn</span>
+            <span class="skill-tag">NumPy</span>
+            <span class="skill-tag">Pandas</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">MATLAB</span>
+            <span class="skill-tag">Mathematica</span>
+            <span class="skill-tag">Git</span>
+          </div>
+        </section>
+
+        <!-- Projects -->
+        <section class="card">
+          <h2 class="section-title"><i class="fas fa-folder-open"></i> Projects</h2>
+          
+          <div class="item-card">
+            <h3 class="item-title">Traffic Sign Classification System</h3>
+            <p class="item-subtitle">Python, TensorFlow, Keras, GTSRB</p>
+            <p class="text">Built an end-to-end CNN classification pipeline with preprocessing, augmentation, and performance evaluation on GTSRB dataset.</p>
+            <a href="https://github.com/melikaarz/Traffic-Sign-Classification-GTSRB-using-CNN" target="_blank" class="project-link"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+
+          <div class="item-card">
+            <h3 class="item-title">Handwritten Character Recognition (EMNIST)</h3>
+            <p class="item-subtitle">Python, CNN, wandb</p>
+            <p class="text">Trained and optimized a CNN model on EMNIST dataset with hyperparameter tuning logged via Weights & Biases.</p>
+            <a href="https://github.com/melikaarz/Machine-Learning-Deep-Learning-_-Aut" target="_blank" class="project-link"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+
+          <div class="item-card">
+            <h3 class="item-title">California Housing Price Prediction</h3>
+            <p class="item-subtitle">Python, Scikit-Learn</p>
+            <p class="text">Implemented Linear Regression from scratch to predict housing prices and benchmarked against standard models.</p>
+            <a href="https://github.com/melikaarz/Machine-Learning-Deep-Learning-_-Aut" target="_blank" class="project-link"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+
+          <div class="item-card">
+            <h3 class="item-title">Polynomial Regression Performance Analysis</h3>
+            <p class="item-subtitle">Python</p>
+            <p class="text">Analyzed the impact of polynomial degrees on underfitting/overfitting across training, validation, and test sets.</p>
+            <a href="https://github.com/melikaarz/Machine-Learning-Deep-Learning-_-Aut" target="_blank" class="project-link"><i class="fab fa-github"></i> View Repository</a>
+          </div>
+        </section>
+
+        <!-- Research -->
+        <section class="card">
+          <h2 class="section-title"><i class="fas fa-microscope"></i> Research</h2>
+          <div class="item-card">
+            <h3 class="item-title">Comparison of Two SVD-Based Color Image Compression Schemes</h3>
+            <p class="text">Developed image compression algorithms using Singular Value Decomposition (SVD) and Quotient Singular Value Decomposition (QSVD) to improve multi-layer image compression ratios while optimizing perceptual quality.</p>
+          </div>
+        </section>
+
+        <!-- Honors & Certifications -->
+        <section class="card">
+          <h2 class="section-title"><i class="fas fa-trophy"></i> Honors & Certificates</h2>
+          <div class="item-card">
+            <h3 class="item-title">2nd Place - International Image Processing & Computer Vision Competition</h3>
+            <p class="item-subtitle">Hosted by Imam Khomeini International University</p>
+            <p class="item-date">May 2024</p>
+          </div>
+          <div class="item-card">
+            <h3 class="item-title">Machine Learning and Deep Learning Certificate</h3>
+            <p class="item-subtitle">Amirkabir University of Technology (AUT)</p>
+            <a href="https://github.com/melikaarz/Machine-Learning-Deep-Learning-_-Aut" target="_blank" class="project-link"><i class="fab fa-github"></i> View Course Repository</a>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Particles.js Library & AI Configuration -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#38bdf8" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": false },
+        "size": { "value": 3, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#38bdf8",
+          "opacity": 0.35,
+          "width": 1.2
+        },
+        "move": {
+          "enable": true,
+          "speed": 2,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false
+        }
+      },
+      "interactivity": {
+        "detect_on": "window",
+        "events": {
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "push" },
+          "resize": true
+        },
+        "modes": {
+          "grab": { "distance": 180, "line_linked": { "opacity": 0.8 } },
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+
+</body>
+</html>
